@@ -1,7 +1,11 @@
 :root {
     --bar-height: 72px;
+    
     --color-primary: #009579;
     --color-primary-light: #0AFFD2;
+    --color-primary-dark: #006E5A;
+    --color-accent: #0A74FF;
+    
     --color-nav-text: white;
     --color-nav-hover: #009579;
 }
@@ -80,23 +84,23 @@ header > div {
     box-sizing: border-box;
 }
 
-#header_nav > div > a {
+#header_nav > a {
     font-weight: 500;
     text-decoration: none;
     color: var(--color-nav-text);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding: 16px 0;
+
+    display:table-cell;
+    text-align: center;
+    vertical-align: middle;
+    height: var(--bar-height);
+    padding: 0 16px;
 }
 
-#header_nav > div {
-    display: inline-block;
-    padding: 16px;
-    height: 100%;
-}
-
-#header_nav > div:hover {
-    opacity: 0.8;
-    background-color: var(--color-nav-hover);
+#header_nav > a:hover {
+    opacity: 0.35;
+    background-color: black;
 }
 
 .material-icons {
