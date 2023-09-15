@@ -6,6 +6,16 @@
     --color-button-low: rgb(0, 255, 0);
 }
 
+.grid-container {
+    display: grid;
+    width: 100%;
+    grid-template-rows: 100%;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 5px;
+    align-items: center;
+    justify-items: center;
+}
+
 .buttons-emergency {
     display: flex;
     justify-content: center;
@@ -15,7 +25,7 @@
     /* font-weight: 700; */
     font-size: x-large;
     
-    text-decoration: none;
+    /* text-decoration: none; */
     border-radius: 25px;
 
     margin: 10px; 
@@ -61,16 +71,6 @@
     background-color: transparent; 
     border: 5px solid var(--color-button-low);
     color: var(--color-button-low);
-}
-
-.grid-container {
-    display: grid;
-    width: 100%;
-    grid-template-rows: 100%;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 5px;
-    align-items: center;
-    justify-items: center;
 }
 
 @media screen and (min-width: 768px) and (orientation: landscape) {
