@@ -85,25 +85,6 @@ header > div {
     background-color: rgba(0, 0, 0, 0.65);
 }
 
-.buttons-emergency{
-    display: block; 
-    width: 50px; 
-    font-family: Arial, Helvetica, sans-serif; 
-    font-weight: 700; 
-    border-radius: 10px; 
-    margin: 50px 30px; 
-    padding: 40px 70px; 
-    text-decoration: none; 
-    color: #fff; 
-    background-color: aqua; 
-}
-
-.buttons-emergency:hover{ 
-    background-color: transparent; 
-    border: 2px solid aqua; 
-    color: Miaqua; 
-}
-
 #header_nav > a {
     font-weight: 500;
     text-decoration: none;
