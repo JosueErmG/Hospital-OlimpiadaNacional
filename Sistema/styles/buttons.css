@@ -1,1 +1,10 @@
 @import url('main.css');
+
+#buttons > a {
+    padding: 8%;
+    
+}
+
+#button-high {
+    background-color: var(--color-blue-button);    
+}

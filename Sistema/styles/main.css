@@ -6,8 +6,14 @@
     --color-accent: #0A74FF;
     
     --color-nav-text: white;
+<<<<<<< Updated upstream
     --color-nav-hover: #009579; 
 
+=======
+    --color-nav-hover: #009579;
+
+    --color-blue-button: rgb(96, 108, 218);
+>>>>>>> Stashed changes
 }
 
 body {
@@ -29,6 +35,13 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 16px;
+    box-sizing: border-box;
+}
+
+.center {
+    width: 100%;
+    margin: auto;
+    text-align:center;
     box-sizing: border-box;
 }
 
