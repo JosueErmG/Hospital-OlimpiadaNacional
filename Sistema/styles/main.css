@@ -68,7 +68,7 @@ header > div {
     display: none;
 }
 
-#inpNavToggle:checked ~ nav {
+#inpNavToggle:checked ~ #header_nav {
     display: flex;
 }
 
@@ -82,6 +82,8 @@ header > div {
     height: calc(100vh - var(--bar-height));
     padding: 32px;
     box-sizing: border-box;
+
+    background-color: rgba(0, 0, 0, 0.65);
 }
 
 #header_nav > a {
@@ -93,8 +95,7 @@ header > div {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    height: var(--bar-height);
-    padding: 0 16px;
+    padding: calc(var(--bar-height) / 2) 16px;
 }
 
 #header_nav > a:hover {
@@ -120,9 +121,10 @@ header > div {
         background: transparent;
     }
 
-    /* #header_nav > a {
-
-    } */
+    #header_nav > a {
+        height: var(--bar-height);
+        padding: 0 16px;
+    }
 
     #header_nav > a:not(:last-of-type) {
         margin-right: 24px;
