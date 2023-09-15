@@ -89,9 +89,8 @@ header > div {
     text-decoration: none;
     color: var(--color-nav-text);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 16px 0;
 
-    display:table-cell;
+    display: table-cell;
     text-align: center;
     vertical-align: middle;
     height: var(--bar-height);
@@ -99,8 +98,7 @@ header > div {
 }
 
 #header_nav > a:hover {
-    opacity: 0.35;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.35);
 }
 
 .material-icons {
@@ -118,13 +116,13 @@ header > div {
         width: unset;
         height: unset;
         padding: unset;
-        background: transparent;
         flex-direction: row;
+        background: transparent;
     }
 
-    #header_nav > a {
-        border-bottom: none;
-    }
+    /* #header_nav > a {
+
+    } */
 
     #header_nav > a:not(:last-of-type) {
         margin-right: 24px;
