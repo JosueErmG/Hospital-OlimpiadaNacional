@@ -1,51 +1,66 @@
 @import url('main.css');
 
+:root {
+    --color-button-high: rgb(55, 0, 255);
+    --color-button-mid: rgb(255, 0, 0);
+    --color-button-low: rgb(0, 255, 0);
+}
+
 .buttons-emergency {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 700;
-    border-radius: 10px;
+
+    font-family: "Roboto-Bold", Arial, Helvetica, sans-serif;
+    /* font-weight: 700; */
+    font-size: x-large;
+    
+    text-decoration: none;
+    border-radius: 25px;
+
     margin: 10px; 
     padding: 90px 80px; 
-    text-decoration: none;
+
+
     width: 100%; 
-    max-width: 200px;
+    height: 100%; 
+    
+    /* max-width: 200px; */
+    
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.45);
 }
 
-#button-high{
-    color: #fff;
-    background-color: rgb(55, 0, 255);
+#button-high {
+    color: var(--color-font-light);
+    background-color: var(--color-button-high);
 }
 
-#button-mid{
-    color: #fff;
-    background-color: rgb(255, 0, 0);
+#button-mid {
+    color: var(--color-font-light);
+    background-color: var(--color-button-mid);
 }
 
-#button-low{
-    color: #fff;
-    background-color: rgb(0, 255, 0);
+#button-low {
+    color: var(--color-font-light);
+    background-color: var(--color-button-low);
 }
 
-#button-high:hover{ 
+#button-high:hover { 
     background-color: transparent; 
-    border: 2px solid rgb(55, 0, 255);
-    color: rgb(55, 0, 255); 
+    border: 5px solid var(--color-button-high);
+    color: var(--color-button-high); 
 }
 
-#button-mid:hover{ 
+#button-mid:hover { 
     background-color: transparent; 
-    border: 2px solid rgb(255, 0, 0); 
-    color: rgb(255, 0, 0); 
+    border: 5px solid var(--color-button-mid); 
+    color: var(--color-button-mid); 
 }
 
-#button-low:hover{ 
+#button-low:hover { 
     background-color: transparent; 
-    border: 2px solid rgb(0, 255, 0);
-    color: rgb(0, 255, 0);
+    border: 5px solid var(--color-button-low);
+    color: var(--color-button-low);
 }
 
 .grid-container {
@@ -56,5 +71,9 @@
     grid-gap: 5px;
     align-items: center;
     justify-items: center;
+}
+
+@media screen and (min-width: 768px) and (orientation: landscape) {
+    
 }
 

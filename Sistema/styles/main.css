@@ -1,7 +1,10 @@
 :root {
     --bar-height: 72px;
+
+    --color-font-light: #FFFFFF;
+
     --color-primary: #009579;
-    --color-primary-light: #ffffff;
+    --color-primary-light: #0dcfb5;
     --color-primary-dark: #006E5A;
     --color-accent: #0A74FF;
     
@@ -9,14 +12,24 @@
     --color-nav-hover: #009579;
 }
 
+html {
+    overflow: auto;
+    height: 100%;
+}
+
+* {
+    font-family: "Roboto", sans-serif;
+}
+
 body {
+    overflow: auto;
+    height: 100%;
     margin: 0;
-    font-family: 'Quicksand', sans-serif;
 }
 
 main {
-    height: 100vh;
-    background: var(--color-primary-light);
+    height: 100%;
+    background: linear-gradient(to bottom right, var(--color-primary), var(--color-primary-light));
     display: flex;
     align-items: center;
     padding-top: var(--bar-height);
@@ -85,7 +98,8 @@ header > div {
     top: var(--bar-height);
     left: 0;
     width: 100%;
-    height: calc(100vh - var(--bar-height));
+    /* height: calc(100vh - var(--bar-height)); */
+    height: 100%;
     padding: 32px;
     box-sizing: border-box;
 
@@ -118,7 +132,7 @@ header > div {
     user-select: none;
 }
 
-@media screen and (min-width: 767px) and (orientation: landscape) {
+@media screen and (min-width: 768px) and (orientation: landscape) {
     #header_NavToggle {
         display: none;
     }

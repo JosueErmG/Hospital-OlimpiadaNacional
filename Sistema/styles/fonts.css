@@ -1,0 +1,173 @@
+@font-face {
+	font-family: 'Roboto';
+	src: url(fonts/Roboto/Roboto-Regular.ttf)  format('truetype'); /* Legacy iOS */
+}
+
+@font-face {
+	font-family: 'Roboto-Bold';
+	src: url(fonts/Roboto/Roboto-Bold.ttf)  format('truetype'); /* Legacy iOS */
+}
+
+@font-face {
+	font-family: 'Roboto-Light';
+	src: url(fonts/Roboto/Roboto-Light.ttf)  format('truetype'); /* Legacy iOS */
+}
+
+@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: url(fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+  
+.material-icons {
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 8956px;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-feature-settings: 'liga';
+	-webkit-font-smoothing: antialiased;
+}
+
+/*!
+ * Font Awesome Free 5.2.0 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ */
+ .fa,.fab,.fal,.far,.fas {
+	-moz-osx-font-smoothing:grayscale;
+	-webkit-font-smoothing:antialiased;
+	display:inline-block;
+	font-style:normal;
+	font-variant:normal;
+	text-rendering:auto;
+	line-height:1
+}
+
+.fa-user:before {
+	content:"\f007"
+}
+
+.fa-user-alt:before {
+	content:"\f406"
+}
+
+.fa-user-alt-slash:before {
+	content:"\f4fa"
+}
+
+.fa-user-astronaut:before {
+	content:"\f4fb"
+}
+
+.fa-user-check:before {
+	content:"\f4fc"
+}
+
+.fa-user-circle:before {
+	content:"\f2bd"
+}
+
+.fa-user-clock:before {
+	content:"\f4fd"
+}
+
+.fa-user-cog:before {
+	content:"\f4fe"
+}
+
+.fa-user-edit:before {
+	content:"\f4ff"
+}
+
+.fa-user-friends:before {
+	content:"\f500"
+}
+
+.fa-user-graduate:before {
+	content:"\f501"
+}
+
+.fa-user-lock:before {
+	content:"\f502"
+}
+
+.fa-user-md:before {
+	content:"\f0f0"
+}
+
+.fa-user-minus:before {
+	content:"\f503"
+}
+
+.fa-user-ninja:before {
+	content:"\f504"
+}
+
+.fa-user-plus:before {
+	content:"\f234"
+}
+
+.fa-user-secret:before {
+	content:"\f21b"
+}
+
+.fa-user-shield:before {
+	content:"\f505"
+}
+
+.fa-user-slash:before {
+	content:"\f506"
+}
+
+.fa-user-tag:before {
+	content:"\f507"
+}
+
+.fa-user-tie:before {
+	content:"\f508"
+}
+
+.fa-user-times:before {
+	content:"\f235"
+}
+
+.fa-users:before {
+	content:"\f0c0"
+}
+
+.fa-users-cog:before {
+	content:"\f509"
+}
+
+.fa-lock:before {
+	content:"\f023"
+}
+.fa-lock-open:before {
+	content:"\f3c1"
+}
+
+ .fa-chevron-right:before {
+	content:"\f054"
+}
+
+@font-face {
+	font-family:"Font Awesome 5 Free";
+	font-style:normal;
+	font-weight:900;
+	src:url(fonts/fa-solid-900.woff) format("woff")
+}
+ 
+.fa,.far,.fas {
+	font-family:"Font Awesome 5 Free"
+}
+
+.fa,.fas {
+	font-weight:900
+}
