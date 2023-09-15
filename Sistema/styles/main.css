@@ -48,7 +48,6 @@ header > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
 }
 
 #header_logo {
@@ -93,9 +92,15 @@ header > div {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
     display: table-cell;
-    text-align: center;
     vertical-align: middle;
-    padding: calc(var(--bar-height) / 2) 16px;
+
+    text-align: center;
+    /* height: var(--bar-height); */
+    /* padding: 0 16px; */
+    padding: calc(var(--bar-height) / 4) 16px;
+
+    /* line-height: var(--bar-height); */
+    
 }
 
 #header_nav > a:hover {
