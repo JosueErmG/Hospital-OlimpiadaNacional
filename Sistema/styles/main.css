@@ -26,10 +26,6 @@ main {
     box-sizing: border-box;
 }
 
-.header_bg {
-    background: var(--color-primary);
-}
-
 header {
     position: fixed;
     z-index: 1;
@@ -81,18 +77,29 @@ header > div {
     padding: 32px;
     background: #222222;
     box-sizing: border-box;
+
+    height: 100%;
 }
 
-#header_nav > a {
+#header_nav > div > a {
     font-weight: 500;
-    padding: 16px 0;
     text-decoration: none;
     color: white;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px 0;
 }
 
-#header_nav > a:hover {
+
+#header_nav > div {
+    display: inline-block;
+    padding: 16px;
+    height: 100%;
+}
+
+
+#header_nav > div:hover {
     opacity: 0.8;
+    background-color: #009579;
 }
 
 .material-icons {
