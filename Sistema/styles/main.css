@@ -118,7 +118,7 @@ header > div {
     user-select: none;
 }
 
-@media screen and (min-width: 767px) {
+@media screen and (min-width: 767px) and (orientation: landscape) {
     #header_NavToggle {
         display: none;
     }
