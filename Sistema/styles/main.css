@@ -1,13 +1,12 @@
 :root {
     --bar-height: 72px;
     --color-primary: #009579;
-    --color-primary-light: #0AFFD2;
+    --color-primary-light: #ffffff;
     --color-primary-dark: #006E5A;
     --color-accent: #0A74FF;
     
     --color-nav-text: white;
-    --color-nav-hover: #009579; 
-
+    --color-nav-hover: #009579;
 }
 
 body {
@@ -17,7 +16,7 @@ body {
 
 main {
     height: 100vh;
-    background: linear-gradient(to bottom right, var(--color-primary), var(--color-primary-light));
+    background: var(--color-primary-light);
     display: flex;
     align-items: center;
     padding-top: var(--bar-height);
@@ -32,6 +31,13 @@ main {
     box-sizing: border-box;
 }
 
+.center {
+    width: 100%;
+    margin: auto;
+    text-align:center;
+    box-sizing: border-box;
+}
+
 header {
     position: fixed;
     z-index: 1;
@@ -39,8 +45,9 @@ header {
     left: 0;
     width: 100%;
     height: var(--bar-height);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.45);
     transition: background 0.15s;
+    background: var(--color-primary);
 }
 
 header > div {
