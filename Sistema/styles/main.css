@@ -6,14 +6,9 @@
     --color-accent: #0A74FF;
     
     --color-nav-text: white;
-<<<<<<< Updated upstream
-    --color-nav-hover: #009579; 
-
-=======
     --color-nav-hover: #009579;
 
     --color-blue-button: rgb(96, 108, 218);
->>>>>>> Stashed changes
 }
 
 body {
