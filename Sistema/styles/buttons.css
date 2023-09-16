@@ -50,6 +50,11 @@ main {
     /* max-width: 200px; */
     
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.45);
+    transition: 240ms; /* vendorless fallback */
+    -o-transition: 240ms; /* opera */
+    -ms-transition: 240ms; /* IE 10 */
+    -moz-transition: 240ms; /* Firefox */
+    -webkit-transition: 240ms; /*safari and chrome */
 }
 
 #button-high {
