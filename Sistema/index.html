@@ -16,16 +16,16 @@
             <div class="container">
                 <div class="screen">
                     <div class="screen__content">
-                        <form class="login">
+                        <form class="login" method="POST">
                             <div class="login__field">
                                 <i class="login__icon fas fa-user"></i>
-                                <input type="text" class="login__input" placeholder="Usuario">
+                                <input type="text" id="user" name="user" class="login__input" placeholder="Legajo">
                             </div>
                             <div class="login__field">
                                 <i class="login__icon fas fa-lock"></i>
-                                <input type="password" class="login__input" placeholder="Contraseña">
+                                <input type="password" id="pass" name="pass" class="login__input" placeholder="Contraseña">
                             </div>
-                            <button class="button login__submit">
+                            <button id="login" name="login" class="button login__submit">
                                 <span class="button__text">Log In</span>
                                 <i class="button__icon fas fa-chevron-right"></i>
                             </button>				
