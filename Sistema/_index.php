@@ -12,7 +12,7 @@
 	</head>
 
     <body>
-        <main class="u_centered">
+        <main class="centered">
             <div class="container">
                 <div class="screen">
                     <div class="screen__content">

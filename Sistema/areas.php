@@ -29,7 +29,7 @@
             </div>
         </header>
 
-        <main class="u_centered">
+        <main class="centered">
             <div id="prueba">
                 <label for="aName">Nombre de Area</label>
                 <input class="textbox" type="text" id="aName" name="areaName" placeholder="Ingrese nombre...">

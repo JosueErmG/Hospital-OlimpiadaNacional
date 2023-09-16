@@ -29,7 +29,7 @@
             </div>
         </header>
 
-        <main>
+        <main class="centered">
             <div class="grid-container">
                 <a href="" class="buttons-emergency" id="button-high">Emergencia Alta</a>
                 <a href="" class="buttons-emergency" id="button-mid">Emergencia Media</a>
