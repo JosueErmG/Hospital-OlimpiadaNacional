@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 
 <?php
+    $error = false;
     if (isset($_POST["submit"])) {
         include("connection.php");
 
         $query = mysqli_query($conn, 
-            "SELECT legajo, pass FROM usuarios WHERE legajo='" . $_POST["user"] . "' and pass='" . $_POST["pass"] . "'"
+            "SELECT legajo, pass FROM usuarios WHERE legajo = '$_POST[user]' and pass = '$_POST[pass]'"
         );
         if (mysqli_num_rows($query) > 0) {
+            $user = mysqli_fetch_row($query);
             header("location:buttons.php");
         }
-        else {
-            echo "wrong";
-        }
+        else
+            $error = true;
     }
 ?>
 
@@ -34,7 +35,11 @@
                 <div class="screen">
                     <div class="screen__content">
                         <form class="login" method="POST" action="#">
-                            <label for="user">asddas</label>
+                            <label class="error_label">
+                                <?php 
+                                    echo $error ? "Legajo o contraseña incorrecta" : "&nbsp" 
+                                ?>
+                            </label>
                             <div class="login__field">
                                 <i class="login__icon fas fa-user"></i>
                                 <input type="text" id="user" name="user" class="login__input" placeholder="Legajo">

@@ -6,11 +6,6 @@
     --color-button-low: rgb(0, 255, 0);
 }
 
-main {
-    padding-left: 15%;
-    padding-right: 15%;
-}
-
 .grid-container {
     display: grid;
     width: 100%;
@@ -37,6 +32,7 @@ main {
     font-family: "Roboto-Bold", Arial, Helvetica, sans-serif;
     color: var(--color-font-light);
     font-size: x-large;
+    text-decoration: none;
     
     border-radius: 35px;
 
@@ -51,11 +47,11 @@ main {
     
     /* max-width: 200px; */
     
-    transition: 240ms; /* vendorless fallback */
-    -o-transition: 240ms; /* opera */
-    -ms-transition: 240ms; /* IE 10 */
-    -moz-transition: 240ms; /* Firefox */
-    -webkit-transition: 240ms; /*safari and chrome */
+    transition: 160ms; /* Vendorless fallback */
+    -o-transition: 160ms; /* Opera */
+    -ms-transition: 160ms; /* IE 10 */
+    -moz-transition: 160ms; /* Firefox */
+    -webkit-transition: 160ms; /* Safari and Chrome */
 }
 
 #button-high {

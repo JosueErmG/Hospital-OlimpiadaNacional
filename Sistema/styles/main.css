@@ -36,12 +36,16 @@ main {
     box-sizing: border-box;
 }
 
-.u_centered,.centered {
+.u_centered,
+.centered {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 16px;
     box-sizing: border-box;
+}
+
+.u_centered {
+    padding: 20px;
 }
 
 header {

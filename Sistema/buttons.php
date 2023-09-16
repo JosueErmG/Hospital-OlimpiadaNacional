@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="es">
 	<head>
 		<meta charset="UTF-8"/>
@@ -13,6 +14,11 @@
 
     <body>
         <header>
+
+            <?php
+                // echo $user[1];
+            ?>
+
             <div class="u_centered">
                 <img id="header_logo" src="" alt="">
                 <input type="checkbox" id="inpNavToggle">

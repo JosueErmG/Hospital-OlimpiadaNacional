@@ -1,5 +1,9 @@
 @import url('main.css');
 
+:root {
+	--color-error: #c2101f;
+}
+
 main {
     padding-top: 0;
 }
@@ -87,6 +91,11 @@ main {
 	top: 420px;
 	right: 50px;	
 	border-radius: 60px;
+}
+
+.error_label {
+	color: var(--color-error);
+	font-weight: bold;
 }
 
 .login {
