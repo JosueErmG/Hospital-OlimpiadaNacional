@@ -1,4 +1,21 @@
 <!DOCTYPE html>
+
+<?php
+    if (isset($_POST["submit"])) {
+        include("connection.php");
+
+        $query = mysqli_query($conn, 
+            "SELECT legajo, pass FROM usuarios WHERE legajo='" . $_POST["user"] . "' and pass='" . $_POST["pass"] . "'"
+        );
+        if (mysqli_num_rows($query) > 0) {
+            header("location:buttons.php");
+        }
+        else {
+            echo "wrong";
+        }
+    }
+?>
+
 <html lang="es">
 	<head>
 		<meta charset="UTF-8"/>
@@ -16,7 +33,8 @@
             <div class="container">
                 <div class="screen">
                     <div class="screen__content">
-                        <form class="login" method="POST">
+                        <form class="login" method="POST" action="#">
+                            <label for="user">asddas</label>
                             <div class="login__field">
                                 <i class="login__icon fas fa-user"></i>
                                 <input type="text" id="user" name="user" class="login__input" placeholder="Legajo">
@@ -25,7 +43,7 @@
                                 <i class="login__icon fas fa-lock"></i>
                                 <input type="password" id="pass" name="pass" class="login__input" placeholder="Contraseña">
                             </div>
-                            <button id="login" name="login" class="button login__submit">
+                            <button id="submit" name="submit" class="button login__submit">
                                 <span class="button__text">Log In</span>
                                 <i class="button__icon fas fa-chevron-right"></i>
                             </button>				
