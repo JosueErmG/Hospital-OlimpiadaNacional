@@ -116,6 +116,7 @@ header > div {
     vertical-align: middle;
 
     text-align: center;
+    user-select: none;
     /* height: var(--bar-height); */
     /* padding: 0 16px; */
     padding: calc(var(--bar-height) / 2) 16px;

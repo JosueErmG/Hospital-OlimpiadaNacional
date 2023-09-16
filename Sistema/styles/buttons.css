@@ -7,14 +7,17 @@
 }
 
 main {
-    padding: 0 15%;
+    padding-left: 15%;
+    padding-right: 15%;
 }
 
 .grid-container {
     display: grid;
     width: 100%;
+    max-height: 100%;
     grid-template-rows: 100%;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
     
     /* grid-gap: 5px; */
     
@@ -32,10 +35,9 @@ main {
 
     text-align: center;
     font-family: "Roboto-Bold", Arial, Helvetica, sans-serif;
-    /* font-weight: 700; */
+    color: var(--color-font-light);
     font-size: x-large;
     
-    /* text-decoration: none; */
     border-radius: 35px;
 
     margin: 10px; 
@@ -49,7 +51,6 @@ main {
     
     /* max-width: 200px; */
     
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.45);
     transition: 240ms; /* vendorless fallback */
     -o-transition: 240ms; /* opera */
     -ms-transition: 240ms; /* IE 10 */
@@ -58,39 +59,42 @@ main {
 }
 
 #button-high {
-    color: var(--color-font-light);
     background-color: var(--color-button-high);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.45),
+                0px 0px 0px 5px var(--color-button-high) inset;
 }
 
 #button-mid {
-    color: var(--color-font-light);
     background-color: var(--color-button-mid);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.45),
+                0px 0px 0px 5px var(--color-button-mid) inset;
 }
 
 #button-low {
-    color: var(--color-font-light);
     background-color: var(--color-button-low);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.45),
+                0px 0px 0px 5px var(--color-button-low) inset;
 }
 
 #button-high:hover { 
     background-color: transparent; 
-    border: 5px solid var(--color-button-high);
+    /* border: 5px solid var(--color-button-high);  */
     color: var(--color-button-high); 
 }
 
 #button-mid:hover { 
     background-color: transparent; 
-    border: 5px solid var(--color-button-mid); 
+    /* border: 5px solid var(--color-button-mid);  */
     color: var(--color-button-mid); 
 }
 
 #button-low:hover { 
     background-color: transparent; 
-    border: 5px solid var(--color-button-low);
+    /* border: 5px solid var(--color-button-low); */
     color: var(--color-button-low);
 }
 
-@media screen and not (min-width: 768px), (orientation: portrait) {
+@media screen and (orientation: portrait) {
     
     .grid-container {
         grid-template-columns: 1fr;
@@ -98,7 +102,6 @@ main {
 
     .buttons-emergency {
         max-width: 50px;
-        max-height: 50px;
     }
 
 }

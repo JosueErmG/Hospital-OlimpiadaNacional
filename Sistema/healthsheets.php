@@ -20,11 +20,11 @@
                     <i class="material-icons">menu</i>
                 </label>
                 <nav id="header_nav">
-                    <a href="buttons.html">Emergencias</a>
-                    <a href="reports.html">Reportes</a>
-                    <a href="healthsheets.html">Fichas de salud</a>
-                    <a href="users.html">Usuarios</a>
-                    <a href="areas.html">Areas</a>
+                    <a href="buttons.php">Emergencias</a>
+                    <a href="reports.php">Reportes</a>
+                    <a href="healthsheets.php">Fichas de salud</a>
+                    <a href="users.php">Usuarios</a>
+                    <a href="areas.php">Areas</a>
                 </nav>
             </div>
         </header>
