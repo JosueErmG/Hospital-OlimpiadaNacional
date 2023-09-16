@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+
+<?php 
+    include("connection.php")
+?>
+
 <html lang="es">
 	<head>
 		<meta charset="UTF-8"/>
