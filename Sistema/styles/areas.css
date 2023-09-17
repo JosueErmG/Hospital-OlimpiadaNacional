@@ -1,4 +1,11 @@
-@import url('main.css');
+@import url("main.css");
+
+.grid2 {
+    display: grid;
+    grid-template-columns: 35% 65%;
+    grid-template-rows: 100%;
+    padding: 75px;
+}
 
 .textbox[type=text], select {
     width: 100%;
@@ -9,13 +16,46 @@
     border-radius: 4px;
     box-sizing: border-box;
 }
-  
+
 .textbox[type=submit]:hover {
     background-color: #ffffff;
 }
-  
-#prueba {
+
+form {
+    width: 100%;
     border-radius: 5px;
-    background-color: #f2f2f2;
+    background-color: var(--color-background);
     padding: 20px;
+}
+
+#button { 
+    display: flex;
+	justify-content: center;
+    align-items: center;
+    text-decoration: none; 
+
+    font-family: "Roboto-Bold", Arial, Helvetica, sans-serif;
+    font-size: x-large;
+
+    float: right;
+    /* margin: 20px 20px;  */
+
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+
+    color: var(--color-font-light); 
+    background-color: var(--color-primary-light);
+}
+
+#button:hover {
+    background-color: transparent; 
+    border: 2px solid var(--color-primary-light);
+    color: var(--color-primary-light);
+}
+
+@media screen and (orientation: portrait) {
+    /* #outline {
+        
+    } */
 }

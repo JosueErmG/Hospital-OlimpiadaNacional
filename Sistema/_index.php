@@ -2,18 +2,22 @@
 
 <?php
     $error = false;
+    // session_start();
+    // session_unset();
+    // session_destroy();
     if (isset($_POST["submit"])) {
-        include("connection.php");
+        include("config/dbconn.php");
+        include("config/sessionhandling.php");
 
-        $query = mysqli_query($conn, 
-            "SELECT legajo, pass FROM usuarios WHERE legajo = '$_POST[user]' and pass = '$_POST[pass]'"
+        $query = mysqli_query($conn,
+            "SELECT legajo, pass FROM usuarios WHERE (legajo = '$_POST[user]' or DNI = '$_POST[user]') and pass = '$_POST[pass]'"
         );
-        if (mysqli_num_rows($query) > 0) {
-            $user = mysqli_fetch_row($query);
-            header("location:buttons.php");
+        
+        $error = mysqli_num_rows($query) <= 0;  // error if no rows retrieved
+        if (!$error) {
+            $_SESSION["user"] = mysqli_fetch_row($query);
+            header("location: buttons.php");
         }
-        else
-            $error = true;
     }
 ?>
 
@@ -37,12 +41,26 @@
                         <form class="login" method="POST" action="#">
                             <label class="error_label">
                                 <?php 
-                                    echo $error ? "Legajo o contraseña incorrecta" : "&nbsp" 
+                                    if (!$error)
+                                        echo "&nbsp";
+                                    else {
+                                        echo "Legajo/DNI o contraseña incorrecta
+                                        <style>
+                                            .login__input:active,
+                                            .login__input:focus,
+                                            .login__input:hover {
+                                                border-bottom-color: var(--color-error);
+                                            }
+                                            .login__icon {
+                                                color: var(--color-error);
+                                            }
+                                        </style>"; 
+                                    }
                                 ?>
                             </label>
                             <div class="login__field">
                                 <i class="login__icon fas fa-user"></i>
-                                <input type="text" id="user" name="user" class="login__input" placeholder="Legajo">
+                                <input type="number" id="user" name="user" class="login__input" placeholder="Legajo/DNI">
                             </div>
                             <div class="login__field">
                                 <i class="login__icon fas fa-lock"></i>

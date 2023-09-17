@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+
+<?php
+    include("config/sessionhandling.php");
+    if (!isset($_SESSION["user"]))
+        header("Location: _index.php");
+?>
+
 <html lang="es">
 	<head>
 		<meta charset="UTF-8"/>
@@ -25,17 +32,39 @@
                     <a href="healthsheets.php">Fichas de salud</a>
                     <a href="users.php">Usuarios</a>
                     <a href="areas.php">Areas</a>
+                    <a href="config/logout.php">Log out</a>
                 </nav>
             </div>
         </header>
 
-        <main class="centered">
-            <div id="prueba">
+        <main class="centered grid2">
+            <form>
                 <label for="aName">Nombre de Area</label>
-                <input class="textbox" type="text" id="aName" name="areaName" placeholder="Ingrese nombre...">
+                <input class="textbox" type="text" id="aName" name="aName" placeholder="Ingrese nombre...">
                 <label for="nArea">Telefono de Area</label>
-                <input class="textbox" type="text" id="nArea" name="numberArea" placeholder="Ingrese telefono...">
-            </div>
+                <input class="textbox" type="text" id="nArea" name="nArea" placeholder="Ingrese telefono...">
+                <a href="" id="button">Registrar</a>
+            </form>
+
+            <section class="datagrid">
+                <table border="1">
+                    <?php
+                        include("config/dbconn.php");
+                        $query = mysqli_query($conn, "SELECT * FROM Usuarios LIMIT 15");
+                        $data = $query->fetch_all(MYSQLI_ASSOC);
+                    ?>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                    </tr>
+                    <?php foreach($data as $row): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($row["nombre"]) ?></td>
+                            <td><?= htmlspecialchars($row["apellido"]) ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                </table>
+            </section>
         </main>
 
     </body>

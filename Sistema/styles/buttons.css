@@ -1,9 +1,13 @@
-@import url('main.css');
+@import url("main.css");
 
 :root {
     --color-button-high: rgb(55, 0, 255);
     --color-button-mid: rgb(255, 0, 0);
     --color-button-low: rgb(0, 255, 0);
+}
+
+main {
+    padding-top: 0;
 }
 
 .grid-container {
@@ -47,50 +51,53 @@
     
     /* max-width: 200px; */
     
-    transition: 160ms; /* Vendorless fallback */
-    -o-transition: 160ms; /* Opera */
-    -ms-transition: 160ms; /* IE 10 */
-    -moz-transition: 160ms; /* Firefox */
-    -webkit-transition: 160ms; /* Safari and Chrome */
+    transition: 200ms; /* Vendorless fallback */
+    -webkit-transition: 200ms; /* Safari and Chrome */
 }
 
 #button-high {
     background-color: var(--color-button-high);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.45),
-                0px 0px 0px 5px var(--color-button-high) inset;
+                0px 0px 0px 3px var(--color-button-high) inset;
 }
 
 #button-mid {
     background-color: var(--color-button-mid);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.45),
-                0px 0px 0px 5px var(--color-button-mid) inset;
+                0px 0px 0px 3px var(--color-button-mid) inset;
 }
 
 #button-low {
     background-color: var(--color-button-low);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.45),
-                0px 0px 0px 5px var(--color-button-low) inset;
+                0px 0px 0px 3px var(--color-button-low) inset;
 }
 
 #button-high:hover { 
-    background-color: transparent; 
+    /* background-color: transparent; */
+    background-color: color-mix(in srgb, var(--color-button-high) 75%, black 25%);
     /* border: 5px solid var(--color-button-high);  */
-    color: var(--color-button-high); 
+    /* color: var(--color-button-high); */
 }
 
 #button-mid:hover { 
-    background-color: transparent; 
+    /* background-color: transparent; */
+    background-color: color-mix(in srgb, var(--color-button-mid) 75%, black 25%);
     /* border: 5px solid var(--color-button-mid);  */
-    color: var(--color-button-mid); 
+    /* color: var(--color-button-mid); */
 }
 
 #button-low:hover { 
-    background-color: transparent; 
+    /* background-color: transparent; */
+    background-color: color-mix(in srgb, var(--color-button-low) 75%, black 25%);
     /* border: 5px solid var(--color-button-low); */
-    color: var(--color-button-low);
+    /* color: var(--color-button-low); */
 }
 
 @media screen and (orientation: portrait) {
+    main {
+        padding-top: var(--bar-height);
+    }
     
     .grid-container {
         grid-template-columns: 1fr;

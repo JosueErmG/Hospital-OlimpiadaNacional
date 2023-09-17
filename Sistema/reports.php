@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+
+<?php
+    include("config/sessionhandling.php");
+    if (!isset($_SESSION["user"]))
+        header("Location: _index.php");
+?>
+
 <html lang="es">
 	<head>
 		<meta charset="UTF-8"/>
@@ -25,6 +32,7 @@
                     <a href="healthsheets.php">Fichas de salud</a>
                     <a href="users.php">Usuarios</a>
                     <a href="areas.php">Areas</a>
+                    <a href="config/logout.php">Log out</a>
                 </nav>
             </div>
         </header>

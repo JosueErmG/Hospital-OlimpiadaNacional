@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 
+<?php
+    include("config/sessionhandling.php");
+    if (!isset($_SESSION["user"]))
+        header("Location: _index.php");
+?>
+
 <html lang="es">
 	<head>
 		<meta charset="UTF-8"/>
@@ -14,11 +20,6 @@
 
     <body>
         <header>
-
-            <?php
-                // echo $user[1];
-            ?>
-
             <div class="u_centered">
                 <img id="header_logo" src="" alt="">
                 <input type="checkbox" id="inpNavToggle">
@@ -31,6 +32,7 @@
                     <a href="healthsheets.php">Fichas de salud</a>
                     <a href="users.php">Usuarios</a>
                     <a href="areas.php">Areas</a>
+                    <a href="config/logout.php">Log out</a>
                 </nav>
             </div>
         </header>
