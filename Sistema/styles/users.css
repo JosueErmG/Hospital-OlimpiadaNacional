@@ -1,1 +1,8 @@
 @import url("main.css");
+
+.united {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    column-gap: 8px;
+    padding: 0 8px 0 0;
+}

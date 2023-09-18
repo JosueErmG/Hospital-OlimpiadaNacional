@@ -37,34 +37,47 @@
             </div>
         </header>
 
-        <main class="centered grid2">
-            <form>
-                <label for="aName">Nombre de Area</label>
-                <input class="textbox" type="text" id="aName" name="aName" placeholder="Ingrese nombre...">
-                <label for="nArea">Telefono de Area</label>
-                <input class="textbox" type="text" id="nArea" name="nArea" placeholder="Ingrese telefono...">
-                <a href="" id="button">Registrar</a>
-            </form>
+        <main class="centered">
+            <div class="grid2">
+                <section class="search_datatable">
+                    <div class="search">
 
-            <section class="datagrid">
-                <table border="1">
-                    <?php
-                        include("config/dbconn.php");
-                        $query = mysqli_query($conn, "SELECT * FROM Usuarios LIMIT 15");
-                        $data = $query->fetch_all(MYSQLI_ASSOC);
-                    ?>
-                    <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                    </tr>
-                    <?php foreach($data as $row): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($row["nombre"]) ?></td>
-                            <td><?= htmlspecialchars($row["apellido"]) ?></td>
-                        </tr>
-                    <?php endforeach ?>
-                </table>
-            </section>
+                    </div>
+                    <div class="datatable_controls">
+                        <div class="datatable">
+                            <table> <!-- border="1" -->
+                                <?php
+                                    include("config/dbconn.php");
+                                    $query = mysqli_query($conn, "SELECT * FROM areas LIMIT 15");
+                                    $data = $query->fetch_all(MYSQLI_ASSOC);
+                                ?>
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>Nombre</th>
+                                    <th>Telefono</th>
+                                </tr>
+                                <?php foreach($data as $row): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($row["codigo"]) ?></td>
+                                        <td><?= htmlspecialchars($row["nombre"]) ?></td>
+                                        <td><?= htmlspecialchars($row["telefono"]) ?></td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </table>
+                        </div>
+                        <div class="controls">
+                            
+                        </div>
+                    </div>
+                </section>
+                <form class="form-u">
+                    <label for="aName">Nombre de Area</label>
+                    <input class="textbox" type="text" id="aName" name="aName" placeholder="Ingrese nombre...">
+                    <label for="nArea">Telefono de Area</label>
+                    <input class="textbox" type="number" id="nArea" name="nArea" placeholder="Ingrese telefono...">
+                    <input class="button" type="button" id="submit" name="submit" value="Registrar">
+                </form>
+            </div>
         </main>
 
     </body>

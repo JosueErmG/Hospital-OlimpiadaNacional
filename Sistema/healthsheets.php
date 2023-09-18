@@ -38,8 +38,53 @@
         </header>
 
         <main class="centered">
-            <div>
-                <h1>asdasd</h1>
+            <div class="grid2">
+                <section class="search_datatable">
+                    <div class="search">
+
+                    </div>
+                    <div class="datatable_controls">
+                        <div class="datatable">
+                            <table> <!-- border="1" -->
+                                <?php
+                                    include("config/dbconn.php");
+                                    $query = mysqli_query($conn, "SELECT * FROM ficha LIMIT 15");
+                                    $data = $query->fetch_all(MYSQLI_ASSOC);
+                                ?>
+                                <tr>
+                                    <th>DNI</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Datos medicos</th>
+                                    <th>Enfermero/Medico</th>
+                                </tr>
+                                <?php foreach($data as $row): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($row["DNI"]) ?></td>
+                                        <td><?= htmlspecialchars($row["nombre"]) ?></td>
+                                        <td><?= htmlspecialchars($row["apellido"]) ?></td>
+                                        <td><?= htmlspecialchars($row["datosMedicos"]) ?></td>
+                                        <td><?= htmlspecialchars($row["usuarioLegajo"]) ?></td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </table>
+                        </div>
+                        <div class="controls">
+                                
+                        </div>
+                    </div>
+                </section>
+                <form class="form-u">
+                    <label for="hDNI">DNI</label>
+                    <input class="textbox" type="number" id="hDNI" name="hDNI" placeholder="Ingrese DNI...">
+                    <label for="hName">Nombre</label>
+                    <input class="textbox" type="text" id="hName" name="hName" placeholder="Ingrese nombre...">
+                    <label for="hLastname">Apellido</label>
+                    <input class="textbox" type="text" id="hLastname" name="hLastname" placeholder="Ingrese apellido...">
+                    <label for="hData">Datos medicos</label>
+                    <textarea class="textbox" id="hData" name="hData" placeholder="Ingrese datos medicos..."></textarea>
+                    <input class="button" type="button" id="submit" name="submit" value="Registrar">
+                </form>
             </div>
         </main>
 

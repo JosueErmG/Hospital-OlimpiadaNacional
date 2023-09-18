@@ -1,1 +1,6 @@
 @import url("main.css");
+
+textarea {
+    resize: none;
+    height: 180px;
+}
