@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 
 <?php
-    include("config/sessionhandling.php");
-    if (!isset($_SESSION["user"]))
-        header("Location: _index.php");
+    include("config/functions.php");
+    $_SESSION["lastfile"] = basename(__FILE__);
+    if (!CheckSession())
+        LogOut();
 ?>
 
 <html lang="es">
@@ -21,10 +22,10 @@
     <body>
         <header>
             <div class="u_centered">
-                <img id="header_logo" src="" alt="">
+                <label><i id="header_logo" class="material-icons">health_and_safety</i></label>
                 <input type="checkbox" id="inpNavToggle">
                 <label id="header_NavToggle" for="inpNavToggle">
-                    <i class="material-icons">menu</i>
+                    <i class="material-icons">menu</i>  
                 </label>
                 <nav id="header_nav">
                     <a href="buttons.php">Emergencias</a>
@@ -33,12 +34,16 @@
                     <a href="users.php">Usuarios</a>
                     <a href="areas.php">Areas</a>
                     <a href="config/logout.php">Log out</a>
+                    <input type="checkbox" id="inpTheme" onclick="ChangeTheme(this.checked);" checked>
+                    <label id="header_theme" for="inpTheme">
+                        <i class="material-icons">brightness_medium</i>
+                    </label>
                 </nav>
             </div>
         </header>
 
-        <main class="centered">
-            <div class="grid-container">
+        <main>
+            <div class="grid-container centered">
                 <a href="" class="buttons-emergency" id="button-high">Emergencia Alta</a>
                 <a href="" class="buttons-emergency" id="button-mid">Emergencia Media</a>
                 <a href="" class="buttons-emergency" id="button-low">Emergencia Baja</a>

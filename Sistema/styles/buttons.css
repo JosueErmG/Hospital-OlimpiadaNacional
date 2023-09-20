@@ -1,9 +1,9 @@
 @import url("main.css");
 
 :root {
-    --color-button-high: rgb(55, 0, 255);
-    --color-button-mid: rgb(255, 0, 0);
-    --color-button-low: rgb(0, 255, 0);
+    --color-button-high: rgb(44, 35, 168);
+    --color-button-mid: #b80606; 
+    --color-button-low: rgb(0, 194, 0);
 }
 
 main {
@@ -12,7 +12,7 @@ main {
 
 .grid-container {
     display: grid;
-    width: 100%;
+    width: 75%;
     max-height: 100%;
     grid-template-rows: 100%;
     grid-template-columns: 1fr 1fr 1fr;
@@ -53,6 +53,7 @@ main {
     
     transition: 200ms; /* Vendorless fallback */
     -webkit-transition: 200ms; /* Safari and Chrome */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.45);
 }
 
 #button-high {

@@ -20,6 +20,10 @@ main {
     box-sizing: border-box;
 }
 
+input::placeholder {
+	color: rgb(153, 204, 196);
+}
+
 .screen {	
 	background: var(--color-primary);		
 	position: relative;	
@@ -37,14 +41,14 @@ main {
 	z-index: 1;
 	position: relative;	
 	height: 100%;
-	padding: 0 30px;
+	padding: 0 10px;
 }
 
 .screen__background {		
 	position: absolute;
 	top: 0;
-	left: 1px;
-	right: -1px;
+	left: 0;
+	right: 0;
 	bottom: 0;
 	z-index: 0;
 	-webkit-clip-path: inset(0 0 0 0);
@@ -140,12 +144,12 @@ main {
 }
 
 .login__submit {
-	background: #fff;
+	background: var(--color-background);
 	font-size: 14px;
 	margin-top: 30px;
-	padding: 16px 20px;
-	border-radius: 20px;
-	border: 1px solid #D4D3E8;
+	padding: 12px 20px;
+	border-radius: 10px;
+	border: 1px solid var(--color-background-darker);
 	text-transform: uppercase;
 	font-weight: 700;
 	display: flex;
@@ -162,6 +166,10 @@ main {
 .login__submit:hover {
 	border-color: var(--color-accent);
 	outline: none;
+}
+
+.login__button {
+	padding: 0 30px;
 }
 
 .button__icon {
@@ -186,7 +194,7 @@ main {
 	justify-content: center;
 }
 
-.social-login__icon {
+/* .social-login__icon {
 	padding: 20px 10px;
 	color: #fff;
 	text-decoration: none;	
@@ -195,4 +203,4 @@ main {
 
 .social-login__icon:hover {
 	transform: scale(1.5);	
-}
+} */

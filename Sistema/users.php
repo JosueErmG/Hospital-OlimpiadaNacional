@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 
 <?php
-    include("config/sessionhandling.php");
-    if (!isset($_SESSION["user"]))
-        header("Location: _index.php");
+    include("config/functions.php");
+    $_SESSION["lastfile"] = basename(__FILE__);
+    if (!CheckSession())
+        LogOut();
 ?>
 
 <html lang="es">
@@ -21,7 +22,7 @@
     <body>
         <header>
             <div class="u_centered">
-                <img id="header_logo" src="" alt="">
+                <label><i id="header_logo" class="material-icons">health_and_safety</i></label>
                 <input type="checkbox" id="inpNavToggle">
                 <label id="header_NavToggle" for="inpNavToggle">
                     <i class="material-icons">menu</i>
@@ -33,6 +34,10 @@
                     <a href="users.php">Usuarios</a>
                     <a href="areas.php">Areas</a>
                     <a href="config/logout.php">Log out</a>
+                    <input type="checkbox" id="inpTheme" onclick="ChangeTheme(this.checked);" checked>
+                    <label id="header_theme" for="inpTheme">
+                        <i class="material-icons">brightness_medium</i>
+                    </label>
                 </nav>
             </div>
         </header>
@@ -40,50 +45,51 @@
         <main class="centered">
             <div class="grid2">
                 <section class="search_datatable">
-                    <div class="search">
+                    <form class="search card" method="POST" action="#" autocomplete="off">
+                        <input type="text" id="dt_search" name="dt_search" placeholder="Buscar">
+                    </form>
+                    <div class="datatable_controls card">
+                        <?php
+                            $limit = floor(GetDTHeight() / 42);
+                            $totalPages = ceil(TableRowsCount("usuariosview") / $limit);
+                            $curPage = isset($_POST["dt_curPage"]) ? min(max(1, $_POST["dt_curPage"]), $totalPages) : 1;
+                            $offset = ($curPage - 1) * $limit;
 
-                    </div>
-                    <div class="datatable_controls">
+                            $rows = GetTable("usuariosview", $offset, $limit);
+                        ?>
                         <div class="datatable">
-                            <table> <!-- border="1" -->
-                                <?php
-                                    include("config/dbconn.php");
-                                    $query = mysqli_query($conn, "SELECT * FROM Usuarios LIMIT 15");
-                                    $data = $query->fetch_all(MYSQLI_ASSOC);
-                                ?>
+                            <table id="datatable"> <!-- border="1" -->
                                 <tr>
-                                    <th>Legajo</th>
-                                    <th>DNI</th>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th> 
-                                    <th>Telefono</th>
-                                    <th>Email</th>
-                                    <th>Area</th>
+                                    <?php foreach($rows[0] as $key => $value) { ?>
+                                        <th> <?= htmlspecialchars($key) ?></th>
+                                    <?php } ?>
                                 </tr>
-                                <?php foreach($data as $row): ?>
+                                <?php foreach($rows as $row) { ?>
                                     <tr>
-                                        <td><?= htmlspecialchars($row["legajo"]) ?></td>
-                                        <td><?= htmlspecialchars($row["DNI"]) ?></td>
-                                        <td><?= htmlspecialchars($row["nombre"]) ?></td>
-                                        <td><?= htmlspecialchars($row["apellido"]) ?></td>
-                                        <td><?= htmlspecialchars($row["telefono"]) ?></td>
-                                        <td><?= htmlspecialchars($row["email"]) ?></td>
-                                        <td><?= htmlspecialchars($row["areaCodigo"]) ?></td>
+                                        <?php foreach($row as $column) { ?>
+                                            <td class="datatable_td"><?= htmlspecialchars($column) ?></td>
+                                        <?php } ?>
                                     </tr>
-                                <?php endforeach ?>
+                                <?php } ?>
                             </table>
                         </div>
-                        <div class="controls">
-                            <button class="material">keyboard_double_arrow_left</button>
-                            <button class="material">chevron_left</button>
-                            <input type="text" class="" style="text-align: right" value="n">
-                            <input type="text" class="" value="/n" readonly>
-                            <button class="material">chevron_right</button>
-                            <button class="material">keyboard_double_arrow_right</button>
-                        </div>
+                        <?php if (count($rows) >= $limit) { ?>
+                            <script>
+                                document.getElementById("datatable").style.height = "100%";
+                            </script>
+                        <?php } ?>
+                        <form class="controls card" method="POST" action="#" autocomplete="off">
+                            <button type="submit" class="prevmost material-icons" onclick="ChangeInpVal(event, 'dt_curPage', 1)">keyboard_double_arrow_left</button>
+                            <button type="submit" class="prev material-icons" onclick="ChangeInpVal(event, 'dt_curPage', '-1', 1, <?= $totalPages ?>)">chevron_left</button>
+                            <input type="number" id="dt_curPage" name="dt_curPage" class="" style="text-align: right" value="<?= $curPage ?>" onchange="this.form.submit();" onkeypress="IntOrSubmit(event, this);">
+                            <!-- onkeypress="IntOrSubmit(event, this);" -->
+                            <input type="text" id="totalPages" name="totalPages" class="" value="<?= "/$totalPages" ?>" readonly>
+                            <button type="submit" class="next material-icons" onclick="ChangeInpVal(event, 'dt_curPage', '+1', 1, <?= $totalPages ?>)">chevron_right</button>
+                            <button type="submit" class="nextmost material-icons" onclick="ChangeInpVal(event, 'dt_curPage', <?= $totalPages ?>)">keyboard_double_arrow_right</button>
+                        </form>
                     </div>
                 </section>
-                <form class="form-u">
+                <form class="form-u card" autocomplete="off">
                     <div class="united">
                         <label for="uFile">Legajo</label>
                         <label for="uDNI">DNI</label>
@@ -100,21 +106,25 @@
                         <label for="uEmail">Email</label>
                         <label for="uNumber">Telefono</label>
                         <input class="textbox" type="email" id="uEmail" name="uEmail" placeholder="Ingrese email...">
-                        <input class="textbox" type="number" id="uNumber" name="uNumber" placeholder="Ingrese telefono...">
+                        <input class="textbox" type="tel" id="uNumber" name="uNumber" placeholder="Ingrese telefono...">
                     </div>
                     <div class="united">
                         <label for="uPass">Contraseña</label>
-                        <label for="rePass">Confirmar contraseña</label>
-                        <input class="textbox" type="text" id="uPass" name="uPass" placeholder="Ingrese contraseña...">
-                        <input class="textbox" type="text" id="rePass" name="rePass" placeholder="Ingrese contraseña...">
+                        <label for="rePass">Confirmar</label>
+                        <input class="textbox" type="password" id="uPass" name="uPass" placeholder="Ingrese contraseña...">
+                        <input class="textbox" type="password" id="rePass" name="rePass" placeholder="Ingrese contraseña...">
                     </div>
 
-                    <input class="button" type="button" id="submit" name="submit" value="Registrar">
+                    <button type="submit" id="submit" name="submit">Registrar</button>
                 </form>
             </div>
         </main>
-
     </body>
+
+    <script>
+
+    </script>
+
 	<script src="scripts/main.js"></script>
 	<script src="scripts/styles.js"></script>
 </html>

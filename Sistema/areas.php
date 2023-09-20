@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 
 <?php
-    include("config/sessionhandling.php");
-    if (!isset($_SESSION["user"]))
-        header("Location: _index.php");
+    include("config/functions.php");
+    $_SESSION["lastfile"] = basename(__FILE__);
+    if (!CheckSession())
+        LogOut();
 ?>
 
 <html lang="es">
@@ -21,7 +22,7 @@
     <body>
         <header>
             <div class="u_centered">
-                <img id="header_logo" src="" alt="">
+                <label><i id="header_logo" class="material-icons">health_and_safety</i></label>
                 <input type="checkbox" id="inpNavToggle">
                 <label id="header_NavToggle" for="inpNavToggle">
                     <i class="material-icons">menu</i>
@@ -33,6 +34,10 @@
                     <a href="users.php">Usuarios</a>
                     <a href="areas.php">Areas</a>
                     <a href="config/logout.php">Log out</a>
+                    <input type="checkbox" id="inpTheme" onclick="ChangeTheme(this.checked);" checked>
+                    <label id="header_theme" for="inpTheme">
+                        <i class="material-icons">cancel</i>
+                    </label>
                 </nav>
             </div>
         </header>
@@ -40,10 +45,36 @@
         <main class="centered">
             <div class="grid2">
                 <section class="search_datatable">
-                    <div class="search">
+                    <div class="search card">
+
+                    <?php
+                        if (isset($_POST["submit"])) {
+                            $aname = $_POST["aName"];
+                            $nnrea = $_POST["nArea"];
+                            $pass = $_POST["nPass"];
+                    
+                            $sql = "INSERT INTO areas (nombre, telefono, pass) VALUES ('$aname', '$nnrea', '$pass')";
+                    
+                            $conn = GetConn();
+                            
+                            if ($conn->query($sql)) {
+                                echo "Datos guardados correctamente";
+                            } else {
+                                echo "Error al guardar los datos: " . $conn->error;
+                            }
+                        }
+                    ?>
 
                     </div>
-                    <div class="datatable_controls">
+                    <div class="datatable_controls card">
+                        <?php
+                            $limit = 15;
+                            $totalPages = ceil(TableRowsCount("usuariosview") / $limit);
+                            $curPage = isset($_POST["curPage"]) ? min(max(1, $_POST["curPage"]), $totalPages) : 1;
+                            $offset = ($curPage - 1) * $limit;
+
+                            $rows = GetTable("usuariosview", $offset, $limit);
+                        ?>
                         <div class="datatable">
                             <table> <!-- border="1" -->
                                 <?php
@@ -56,26 +87,33 @@
                                     <th>Nombre</th>
                                     <th>Telefono</th>
                                 </tr>
-                                <?php foreach($data as $row): ?>
+                                <?php foreach($data as $row) { ?>
                                     <tr>
                                         <td><?= htmlspecialchars($row["codigo"]) ?></td>
                                         <td><?= htmlspecialchars($row["nombre"]) ?></td>
                                         <td><?= htmlspecialchars($row["telefono"]) ?></td>
                                     </tr>
-                                <?php endforeach ?>
+                                <?php } ?>
                             </table>
                         </div>
-                        <div class="controls">
-                            
+                        <div class="controls card">
+                            <button class="material-icons">keyboard_double_arrow_left</button>
+                            <button class="material-icons">chevron_left</button>
+                            <input type="number" class="" style="text-align: right" value="0" onkeypress="if (isNaN(event.key)) event.preventDefault();">
+                            <input type="text" class="" value="/n" readonly>
+                            <button class="material-icons">chevron_right</button>
+                            <button class="material-icons">keyboard_double_arrow_right</button>
                         </div>
                     </div>
                 </section>
-                <form class="form-u">
+                <form class="form-u card" method="POST" action="#">
                     <label for="aName">Nombre de Area</label>
                     <input class="textbox" type="text" id="aName" name="aName" placeholder="Ingrese nombre...">
                     <label for="nArea">Telefono de Area</label>
                     <input class="textbox" type="number" id="nArea" name="nArea" placeholder="Ingrese telefono...">
-                    <input class="button" type="button" id="submit" name="submit" value="Registrar">
+                    <label for="aName">Contraseña</label>
+                    <input class="textbox" type="text" id="nPass" name="nPass" placeholder="Ingrese contraseña...">
+                    <button type="submit" id="submit" name="submit">Registrar</button>
                 </form>
             </div>
         </main>

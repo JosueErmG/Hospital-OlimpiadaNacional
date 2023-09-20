@@ -1,4 +1,4 @@
-<?php 
-    include("sessionhandling.php");
-    logout(); 
+<?php
+    include("functions.php");
+    LogOut(); 
 ?>
