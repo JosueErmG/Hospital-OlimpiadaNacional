@@ -34,26 +34,23 @@ main {
 
     text-align: center;
     font-family: "Roboto-Bold", Arial, Helvetica, sans-serif;
-    color: var(--color-font-light);
+    color: var(--color-font);
     font-size: x-large;
     text-decoration: none;
     
-    border-radius: 35px;
 
     margin: 10px; 
     padding: 80px 80px; 
-    /* padding: 15vh;  */
-
-
-    /* width: 100%;  */
     aspect-ratio: 1;
-    /* height: 100%;  */
+
     
-    /* max-width: 200px; */
+    outline: 0;
+    border: 0;
+    border-radius: 35px;
     
     transition: 200ms; /* Vendorless fallback */
     -webkit-transition: 200ms; /* Safari and Chrome */
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.45);
+
 }
 
 #button-high {
@@ -74,6 +71,7 @@ main {
                 0px 0px 0px 3px var(--color-button-low) inset;
 }
 
+#button-high:focus,
 #button-high:hover { 
     /* background-color: transparent; */
     background-color: color-mix(in srgb, var(--color-button-high) 75%, black 25%);
@@ -81,6 +79,7 @@ main {
     /* color: var(--color-button-high); */
 }
 
+#button-mid:focus,
 #button-mid:hover { 
     /* background-color: transparent; */
     background-color: color-mix(in srgb, var(--color-button-mid) 75%, black 25%);
@@ -88,6 +87,7 @@ main {
     /* color: var(--color-button-mid); */
 }
 
+#button-low:focus,
 #button-low:hover { 
     /* background-color: transparent; */
     background-color: color-mix(in srgb, var(--color-button-low) 75%, black 25%);

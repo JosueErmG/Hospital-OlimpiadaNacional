@@ -6,7 +6,7 @@ function ChangeTheme(bDark) {
             --color-background-darker: color-mix(in srgb, var(--color-background-dark) 80%, black 20%);
             --color-background-light: color-mix(in srgb, var(--color-background) 80%, white 20%);
         
-            --color-font-light: #EBEBEB;
+            --color-font: #EBEBEB;
             --color-font-over-primary: #EBEBEB;
         
             --color-primary: #006E5A; 
@@ -22,7 +22,7 @@ function ChangeTheme(bDark) {
             --color-background-darker: color-mix(in srgb, var(--color-background-dark) 80%, black 20%);
             --color-background-light: color-mix(in srgb, var(--color-background) 80%, white 20%);
         
-            --color-font-light: #070707;
+            --color-font: #070707;
             --color-font-over-primary: #EBEBEB;
         
             --color-primary: #009579;

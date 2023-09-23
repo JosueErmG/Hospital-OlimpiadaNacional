@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <?php
-    include("config/functions.php");
+    include "config/functions.php";
     $error = false;
 
     if (!InSession() and isset($_POST["submit"]))
@@ -12,12 +12,17 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<link rel="icon" type="image/x-icon" href="assets/favicon.png">
+		<link rel="icon" type="image/x-icon" href="assets/favicon.svg">
 
-		<title>TITLE</title> 
+		<title>Hospital</title> 
 
 		<link rel="stylesheet" href="styles/index.css"/>
         <link rel="stylesheet" href="styles/fonts.css">
+
+        <script>
+            if (window.history.replaceState)
+                window.history.replaceState(null, null, window.location.href);
+        </script>
 	</head>
 
     <body>
