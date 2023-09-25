@@ -3,7 +3,5 @@ https://stackoverflow.com/questions/18178867/how-can-i-use-googles-roboto-font-o
 https://github.com/googlefonts/roboto/releases/tag/v2.138
 https://www.w3schools.com/css/tryit.asp?filename=trycss_forms
 
-
-
 https://stackoverflow.com/questions/12578507/implement-an-input-with-a-mask
 https://www.chartjs.org/docs/latest/getting-started/
