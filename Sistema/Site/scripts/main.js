@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", TelephoneControl);
+function TelephoneControl() {
     for (const el of document.querySelectorAll("[data-mask][data-slots]")) {
         var pattern = el.getAttribute("data-mask"),
             slots = new Set(el.dataset.slots || "_"),
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         el.addEventListener("focus", format);
         el.addEventListener("blur", () => el.value === pattern && (el.value=""));
     }
-});
+}
 
 function IntOrSubmit(e, oText) {
     if (e.keyCode == 13) {
@@ -81,14 +82,34 @@ function TelephoneInput(e, oText) {
 }
 
 function DtDelete(oBtn, table, column) {
-    var row = oBtn.id.substring(oBtn.id.lastIndexOf('_') + 1);
-    DBDelete(table, column + ' = ' + row, function(result) {
+    var row = oBtn.id.substring(oBtn.id.lastIndexOf("_") + 1);
+    DBDelete(table, column + " = " + row, function(result) {
         if (!result)
             document.getElementById("datatable_row_" + row).remove();
-        else {
+        else
             alert("Error: " + result);
-        }
     })
+}
+
+function DtReportsCck(e, oCck) {
+    var row = oCck.id.substring(oCck.id.lastIndexOf("_") + 1);
+    var value = oCck.checked ? 1 : 0;
+    DBChange("reportes", "atendido", value, "ID = " + row, function(result) {
+        if (!result)
+            oCck.checked = value;
+        else
+            alert("Error: " + result);
+    })
+
+    var date = value ? new Date().toISOString().slice(0, 19).replace("T", " ") : "NULL";
+    DBChange("reportes", "fechaAtendido", date, "ID = " + row, function(result) {
+        if (!result)
+            document.getElementById("datatable_row_" + row).cells[2].innerHTML = date == "NULL" ? "" : date;
+        else
+            alert("Error: " + result);
+    })
+
+    e.preventDefault();
 }
 
 function DBDelete(table, condition, callback) {
@@ -109,6 +130,27 @@ function DBDelete(table, condition, callback) {
         callback("Command failed");
     });
 }
+
+function DBChange(table, column, value, condition, callback) {
+    $.ajax({
+        type: "POST",
+        url: "config/dbchange.php",
+        dataType: "json",
+        data: {table: table, column: column, value: value, condition: condition},
+    })
+    .done(function(ex) {
+        if (!ex) 
+            callback(false);
+        else {
+            console.error("Exception: " + ex);
+            callback(ex);
+        }
+    }).fail(function(){
+        callback("Command failed");
+    });
+}
+
+
 
 function CheckPass(pass) {
     var errorStr = "";
@@ -471,4 +513,5 @@ function RestoreSheetsForm() {
     errorLabel.innerHTML = "&nbsp";
     CheckSheetsFormButton();
 }
+
 

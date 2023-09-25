@@ -6,8 +6,8 @@
     if (!CheckSession())
         LogOut();
 
-    if (!$_SESSION["user"][7]) {
-        include "config/unauthorized.php";
+    if ($_SESSION["is_area"] or !$_SESSION["user"][7]) {
+        include "unauthorized.php";
         exit;
     }
 
@@ -42,21 +42,15 @@
 
     $search = isset($_POST["dt_search"]) ? $_POST["dt_search"] : "";
     $DTh = GetDTHeight();
-    if ($DTh == 0) {
-        $rows = array();
-        $curPage = 0;
-        $totalPages = 0;
-    }
-    else {
-        $limit = max(floor($DTh / 42), 1);
-        $totalPages = ceil(TableRowsCount("areasview") / $limit);
-        $curPage = isset($_POST["dt_curPage"]) ? min(max(1, $_POST["dt_curPage"]), $totalPages) : 1;
-        $offset = ($curPage - 1) * $limit;
-        $rows = GetTable("areasview", $offset, $limit, $search);
-    }
+
+    $limit = $DTh != 0 ? max(floor($DTh / GetDTRowHeight()), 1) : 10;
+    $totalPages = ceil(TableRowsCount("areasview") / $limit);
+    $curPage = isset($_POST["dt_curPage"]) ? min(max(1, $_POST["dt_curPage"]), $totalPages) : 1;
+    $offset = ($curPage - 1) * $limit;
+    $rows = GetTable("areasview", $offset, $limit, $search);
 ?>
 
-<html lang="es">
+<html lang="es" data-theme="<?= $_COOKIE['theme'] ?>">
 	<head>
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -91,11 +85,11 @@
                     <a href="reports.php">Reportes</a>
                     <a href="healthsheets.php">Fichas de salud</a>
                     <a href="users.php">Usuarios</a>
-                    <a href="areas.php" class="selected">Areas</a>
+                    <a href="areas.php" class="selected">Áreas</a>
                     <a href="config/logout.php">Log out</a>
-                    <input type="checkbox" id="inpTheme" onclick="ChangeTheme(this.checked);" checked>
+                    <input type="checkbox" id="inpTheme" onclick="ChangeTheme();" checked>
                     <label id="header_theme" for="inpTheme">
-                        <i class="material-icons">cancel</i>
+                        <i class="material-icons">brightness_medium</i>
                     </label>
                 </nav>
             </div>
@@ -113,14 +107,14 @@
                         <div id="datatable" class="datatable">
                             <table>
                                 <tr class="datatable_hrow">
-                                    <?php if (count($rows) > 0) foreach($rows[0] as $key => $value) { ?>
+                                    <?php if (count($rows) > 0) foreach ($rows[0] as $key => $value) { ?>
                                         <th><?= nl2br(htmlspecialchars($key)) ?></th>
                                     <?php } ?>
                                     <th class="datatable_del_button"></th>
                                 </tr>
-                                <?php foreach($rows as $row) { ?>
+                                <?php foreach ($rows as $row) { ?>
                                     <tr class="datatable_drow" id="datatable_row_<?= $row['Código'] ?>">
-                                        <?php foreach($row as $column) { ?>
+                                        <?php foreach ($row as $column) { ?>
                                             <td class="datatable_td"><?= nl2br(htmlspecialchars($column)) ?></td>
                                         <?php } ?>
                                         <td id="database_del_<?= $row['Código'] ?>" class="datatable_td datatable_del_button" 
@@ -130,31 +124,29 @@
                             </table>
                         </div>
                         <?php if (count($rows) >= $limit) { ?>
-                            <script>
-                                document.getElementById("datatable").getElementsByTagName("table")[0].style.height = "100%";
-                            </script>
+                        <script>
+                            document.getElementById("datatable").getElementsByTagName("table")[0].style.height = "100%";
+                        </script>
                         <?php }
-                            SetDTHeight("datatable");
-                            if ($DTh == 0)
-                                header("Refresh: 0");
+                            SetDTHeight("datatable", "table");
                         ?>
                         <form class="controls card" method="POST" action="#" autocomplete="off">
                             <button type="submit" class="material-icons" onclick="ChangeInput(event, 'dt_curPage', 1)">keyboard_double_arrow_left</button>
                             <button type="submit" class="material-icons" onclick="ChangeInput(event, 'dt_curPage', '-1', 1, <?= $totalPages ?>)">chevron_left</button>
                             <input type="text" id="dt_curPage" name="dt_curPage" style="text-align: right" maxlength="<?= strlen($totalPages) ?>"
                                    value="<?= $curPage ?>" onchange="this.form.submit();" onkeypress="IntOrSubmit(event, this);">
-                            <input type="text" value="<?= "/$totalPages" ?>" readonly>
+                            <input type="text" value="<?= "/$totalPages" ?>" onfocus="this.blur();" readonly>
                             <button type="submit" class="material-icons" onclick="ChangeInput(event, 'dt_curPage', '+1', 1, <?= $totalPages ?>)">chevron_right</button>
                             <button type="submit" class="material-icons" onclick="ChangeInput(event, 'dt_curPage', <?= $totalPages ?>)">keyboard_double_arrow_right</button>
                         </form>
                     </div>
                 </section>
                 <form class="form-u card" method="POST" action="#" autocomplete="off">
-                    <label for="aName">Nombre de Area</label>
+                    <label for="aName">Nombre de área</label>
                     <input type="text" id="aName" name="aName" placeholder="Ingrese nombre..." value="<?= $aName ?>"
                            oninput="CheckAreasFormButton();">
-                    <label for="aNumber">Telefono de Area</label>
-                    <input type="tel" id="aNumber" name="aNumber" placeholder="Ingrese telefono..." value="<?= $aNumber ?>" 
+                    <label for="aNumber">Teléfono de área</label>
+                    <input type="tel" id="aNumber" name="aNumber" placeholder="Ingrese teléfono..." value="<?= $aNumber ?>" 
                            data-mask="+__ ___ ___-____" data-slots="_" 
                            oninput="CheckAreasFormButton();" onkeydown="TelephoneInput(event, this);">
                     <div class="united">

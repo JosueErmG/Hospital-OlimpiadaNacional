@@ -6,3 +6,4 @@ https://www.w3schools.com/css/tryit.asp?filename=trycss_forms
 
 
 https://stackoverflow.com/questions/12578507/implement-an-input-with-a-mask
+https://www.chartjs.org/docs/latest/getting-started/

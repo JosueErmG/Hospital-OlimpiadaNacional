@@ -1,0 +1,21 @@
+@import url("main.css");
+
+.grid-two-rows {
+    display: grid;
+    grid-template-rows: auto auto 20px;
+    font-size: 30px;
+}
+
+.right {
+    background-color: aliceblue;
+}
+
+.container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* #miElemento {
+    font-size: 34px;
+    font-weight: bold;
+} */

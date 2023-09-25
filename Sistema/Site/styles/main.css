@@ -1,6 +1,8 @@
 :root {
     --bar-height: 64px;
+}
 
+:root[data-theme="dark"] {
     --color-background: #282536;
     --color-background-dark: color-mix(in srgb, var(--color-background) 80%, black 20%);
     --color-background-darker: color-mix(in srgb, var(--color-background-dark) 80%, black 20%);
@@ -25,10 +27,14 @@
 	--color-error: #C2101F;
 	--color-error-dark: color-mix(in srgb, var(--color-error) 80%, black 20%);
 
+    --filter-datatable-checkbox: invert(10%) sepia(10%) saturate(5419%) hue-rotate(189.8deg) brightness(23.8%) contrast(110%);
+
     /* #08DF74 */
     /* #000296 */
+}
     
-    /* --color-background: #c9c9c9;
+:root[data-theme="light"] {
+    --color-background: #c9c9c9;
     --color-background-dark: color-mix(in srgb, var(--color-background) 90%, black 10%);
     --color-background-darker: color-mix(in srgb, var(--color-background-dark) 80%, black 20%);
     --color-background-light: color-mix(in srgb, var(--color-background) 60%, white 40%);
@@ -36,7 +42,7 @@
 
     --color-font: #070707;
     --color-font-over-primary: #EBEBEB;
-    --color-font-over-primary-light: #D6D6D6;
+    --color-font-over-primary-light: #AFAFAF;
 
     --color-scrollbar: var(--color-background);
     --color-scrollbar-back: var(--color-background-lighter);
@@ -47,29 +53,15 @@
     --color-primary-darker: color-mix(in srgb, var(--color-primary-dark) 90%, black 10%);
     --color-primary-light: color-mix(in srgb, var(--color-primary) 80%, white 20%);
     --color-primary-lighter: color-mix(in srgb, var(--color-primary-light) 90%, white 10%);
-    --color-primary-light: #0dcfb5;
-    --color-primary-dark: #006E5A;
 
-    --color-accent: #0A74FF;
+    --color-accent: var(--color-primary-dark);
 	--color-error: #C2101F;
-	--color-error-dark: color-mix(in srgb, var(--color-error) 80%, black 20%); */
+	--color-error-dark: color-mix(in srgb, var(--color-error) 80%, black 20%);
 
-
-
-
+    --filter-datatable-checkbox: unset;
     
-    /* --color-background: #F2F2F2;
-    --color-background-dark: color-mix(in srgb, var(--color-background) 90%, black 10%);
-    --color-background-darker: color-mix(in srgb, var(--color-background-dark) 80%, black 20%);
-    --color-background-light: color-mix(in srgb, var(--color-background) 80%, white 20%);
-
-    --color-font: #070707;
-    --color-font-over-primary: #EBEBEB;
-
-    --color-primary: #009579;
-    --color-primary-light: #0dcfb5;
-    --color-primary-dark: #006E5A;
-    --color-accent: #0A74FF; */
+    /* #0dcfb5 */
+    /* #006E5A */
 }
 
 * {
@@ -84,6 +76,13 @@
 *::-webkit-scrollbar {
     width: 10px;
     height: 10px;
+}
+
+.warning {
+    width: 100%;
+    height: 100%;
+    /* max-width: 250px; */
+    max-height: 250px;
 }
 
 *::-webkit-scrollbar-corner,
@@ -143,6 +142,10 @@ header > div {
     align-items: center;
 }
 
+#header_theme {
+    cursor: pointer;
+}
+
 #header_NavToggle > i,
 #header_theme > i,
 #header_logo {
@@ -182,6 +185,7 @@ header > div {
     left: 0;
     top: var(--bar-height);
     box-sizing: border-box;
+    overflow: auto;
 }
 
 #header_nav > label,
@@ -235,15 +239,18 @@ header > div {
 .error_label {
     display: block;
     text-align: center;
-    margin: 10px 0;
+    margin: 6px 0;
 
 	color: var(--color-error);
 	font-weight: bold;
     font-size: 11.5pt;
+    user-select: none;
 }
 
 #form-u_error_label {
     margin-top: 2px;
+    margin-bottom: 10px;
+    user-select: none;
 }
 
 .material-icons {
@@ -377,10 +384,9 @@ header > div {
     background-color: var(--color-background-light);
 } */
 
-.search_datatable .datatable_del_button {
+.datatable .datatable_del_button {
     font-family: "Material Icons";
     
-    /* display: block; */
     text-align: center;
 
     font-size: 18pt;
@@ -394,15 +400,37 @@ header > div {
     padding: 0;
     
     user-select: none;
+    cursor: pointer;
 }
 
-.search_datatable .datatable_del_button:hover {
+.datatable .datatable_del_button:hover {
     color: var(--color-error);
 }
 
-.search_datatable .datatable_del_button:active {
+.datatable .datatable_del_button:active {
     color: var(--color-error-dark);
 }
+
+
+
+.datatable .datatable_checkbox {
+    text-align: center;
+}
+
+.datatable .datatable_input_checkbox {
+    height: 70%;
+    aspect-ratio: 1;
+    accent-color: var(--color-primary);
+    filter: var(--filter-datatable-checkbox);
+    cursor: pointer;
+}
+
+.datatable .datatable_input_checkbox:checked {
+    filter: unset;
+}
+
+
+
 
 .search_datatable .datatable_controls table tr:hover {
     background-color: var(--color-background-dark);
@@ -446,6 +474,7 @@ header > div {
     border: none;
     background-color: inherit;
     font-size: 16pt;
+    user-select: none;
 }
 
 .search_datatable .controls button:hover {
@@ -469,6 +498,8 @@ header > div {
     width: 100%;
     padding: 20px;
     margin: -20px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .form-u input,
@@ -500,6 +531,7 @@ header > div {
     font-family: "Roboto-Bold", "Roboto", Helvetica, sans-serif;
     font-size: larger;
     float: right;
+    user-select: none;
 
     width: calc(50% - 4px);
     height: 42px;
@@ -585,8 +617,13 @@ header > div {
 
     .form-u {
         width: calc(100% - 40px);
+        margin: -20px;
         margin-left: 20px;
         margin-right: 20px;
+    }
+
+    #header_theme i {
+        justify-content: center;
     }
 }
 

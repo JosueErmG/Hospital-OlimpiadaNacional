@@ -6,23 +6,49 @@
     if (!CheckSession())
         LogOut();
 
-    $search = isset($_POST["dt_search"]) ? $_POST["dt_search"] : "";
-    $DTh = GetDTHeight();
-    if ($DTh == 0) {
-        $rows = array();
-        $curPage = 0;
-        $totalPages = 0;
+    if ($_SESSION["is_area"]) {
+        include "unauthorized.php";
+        exit;
+    }
+
+    $error = "&nbsp";
+    if (!isset($_POST["submit"])) {
+        $hDNI = ""; $hName = "";
+        $hLastname = ""; $hData = "";
     }
     else {
-        $limit = max(floor($DTh / 42), 1);
-        $totalPages = ceil(TableRowsCount("reportesview") / $limit);
-        $curPage = isset($_POST["dt_curPage"]) ? min(max(1, $_POST["dt_curPage"]), $totalPages) : 1;
-        $offset = ($curPage - 1) * $limit;
-        $rows = GetTable("reportesview", $offset, $limit, $search);
+        $hDNI = $_POST["hDNI"]; $hName = $_POST["hName"];
+        $hLastname = $_POST["hLastname"]; $hData = $_POST["hData"];
+
+        if (!is_numeric($hDNI) or $hDNI < 999999)
+            $error = "Número de documento inválido";
+        else {
+            try {
+                InsertInTable(
+                    "fichas",
+                    "DNI, nombre, apellido, datosMedicos, usuarioLegajo",
+                    "'$hDNI', '$hName', '$hLastname', '$hData', '" . $_SESSION["user"][0] . "'"
+                );
+                $hDNI = ""; $hName = "";
+                $hLastname = ""; $hData = "";
+            }
+            catch (Exception $ex) {
+                $error = "No se ha podido crear la ficha: " . $ex->getMessage();
+            }
+        }
     }
+        
+    $search = isset($_POST["dt_search"]) ? $_POST["dt_search"] : "";
+    $DTh = GetDTHeight();
+
+    $limit = $DTh != 0 ? max(floor($DTh / GetDTRowHeight()), 1) : 10;
+    $totalPages = ceil(TableRowsCount("fichasview") / $limit);
+    $curPage = isset($_POST["dt_curPage"]) ? min(max(1, $_POST["dt_curPage"]), $totalPages) : 1;
+    $offset = ($curPage - 1) * $limit;
+    $rows = GetTable("fichasview", $offset, $limit, $search);
 ?>
 
-<html lang="es">
+<html lang="es" data-theme="<?= $_COOKIE['theme'] ?>">
 	<head>
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -30,7 +56,7 @@
 
 		<title>Hospital</title> 
 
-		<link rel="stylesheet" href="styles/reports.css"/>
+		<link rel="stylesheet" href="styles/healthsheets.css"/>
         <link rel="stylesheet" href="styles/fonts.css">
 
         <script>
@@ -54,14 +80,14 @@
                 </label>
                 <nav id="header_nav">
                     <a href="buttons.php">Emergencias</a>
-                    <a href="reports.php" class="selected">Reportes</a>
-                    <a href="healthsheets.php">Fichas de salud</a>
+                    <a href="reports.php">Reportes</a>
+                    <a href="healthsheets.php" class="selected">Fichas de salud</a>
                     <?php if ($_SESSION["user"][7]) { ?>
                         <a href="users.php">Usuarios</a>
-                        <a href="areas.php">Areas</a>
+                        <a href="areas.php">Áreas</a>
                     <?php } ?>
                     <a href="config/logout.php">Log out</a>
-                    <input type="checkbox" id="inpTheme" onclick="ChangeTheme(this.checked);" checked>
+                    <input type="checkbox" id="inpTheme" onclick="ChangeTheme();" checked>
                     <label id="header_theme" for="inpTheme">
                         <i class="material-icons">brightness_medium</i>
                     </label>
@@ -81,78 +107,66 @@
                         <div id="datatable" class="datatable">
                             <table>
                                 <tr class="datatable_hrow">
-                                    <?php if (count($rows) > 0) foreach($rows[0] as $key => $value) { ?>
+                                    <?php if (count($rows) > 0) foreach ($rows[0] as $key => $value) { ?>
                                         <th><?= nl2br(htmlspecialchars($key)) ?></th>
                                     <?php } ?>
-                                    <?php if ($_SESSION["user"][7]) { ?>
-                                        <th class="datatable_del_button"></th>
-                                    <?php } ?>
+                                    <th class="datatable_del_button"></th>
                                 </tr>
-                                <?php foreach($rows as $row) { ?>
+                                <?php foreach ($rows as $row) { ?>
                                     <tr class="datatable_drow" id="datatable_row_<?= $row['ID'] ?>">
-                                        <?php foreach($row as $column) { ?>
+                                        <?php foreach ($row as $column) { ?>
                                             <td class="datatable_td"><?= nl2br(htmlspecialchars($column)) ?></td>
                                         <?php } ?>
-                                        <?php if ($_SESSION["user"][7]) { ?>
+                                        <?php if ($_SESSION["user"][7] or $_SESSION["user"][0] == $row['Médico/Enfermero']) { ?>
                                             <td id="database_del_<?= $row['ID'] ?>" class="datatable_td datatable_del_button" 
-                                                onclick="DtDelete(this, 'reportes', 'ID');">delete</td>
+                                                onclick="DtDelete(this, 'fichas', 'ID');">delete</td>
                                         <?php } ?>
                                     </tr>
                                 <?php } ?>
                             </table>
                         </div>
                         <?php if (count($rows) >= $limit) { ?>
-                            <script>
-                                document.getElementById("datatable").getElementsByTagName("table")[0].style.height = "100%";
-                            </script>
+                        <script>
+                            document.getElementById("datatable").getElementsByTagName("table")[0].style.height = "100%";
+                        </script>
                         <?php }
-                            SetDTHeight("datatable");
-                            if ($DTh == 0)
-                                header("Refresh: 0");
+                            SetDTHeight("datatable", "table");
                         ?>
                         <form class="controls card" method="POST" action="#" autocomplete="off">
                             <button type="submit" class="material-icons" onclick="ChangeInput(event, 'dt_curPage', 1)">keyboard_double_arrow_left</button>
                             <button type="submit" class="material-icons" onclick="ChangeInput(event, 'dt_curPage', '-1', 1, <?= $totalPages ?>)">chevron_left</button>
                             <input type="text" id="dt_curPage" name="dt_curPage" style="text-align: right" maxlength="<?= strlen($totalPages) ?>"
                                    value="<?= $curPage ?>" onchange="this.form.submit();" onkeypress="IntOrSubmit(event, this);">
-                            <input type="text" value="<?= "/$totalPages" ?>" readonly>
+                            <input type="text" value="<?= "/$totalPages" ?>" onfocus="this.blur();" readonly>
                             <button type="submit" class="material-icons" onclick="ChangeInput(event, 'dt_curPage', '+1', 1, <?= $totalPages ?>)">chevron_right</button>
-                            <button type="submit" class="material-icons" onclick="ChangeInput(event, 'dt_curPage', <?= $totalPages ?>)">keyboard_double_arrow_right</button>
+                            <button type="submit" class="material-icons" onclick="ChangeInput(event, 'dt_curPage', <?= $totalPages ?>, 1)">keyboard_double_arrow_right</button>
                         </form>
                     </div>
                 </section>
-                <div class="form-u">
-                    <select name="" id="tipo">
-                        <option value="circular">
-                            Gráfico Circular
-                        </option>
-                        <option value="columna">
-                            Gráfico de Columnas
-                        </option>
-                    </select>
-                    <input type="text" placeholder="Título del Gráfico" id="titulo">
-                    <div class="datos" id="datos">
-                        <div class="dato">
-                            <input type="text" placeholder="Leyenda 1" class="serie">
-                            <input type="text" placeholder="Valor 1" class="valor">
-                        </div>
-                        <div class="dato">
-                            <input type="text" placeholder="Leyenda 2" class="serie">
-                            <input type="text" placeholder="Valor 2" class="valor">
-                        </div>
-                    </div>
-                    <button onclick="agregarDato()" class="agregar"> + </button>
-                    <button onclick="cargarGrafico()" class="crear-grafico">Crear Gráfico</button>
-                    <div id="piechart"></div>
-                    <div id="columnchart"></div>
-                </div>
-                <!-- <span id="bottom-padding">&nbsp</span> -->
+                <form class="form-u card" method="POST" action="#" autocomplete="off">
+                    <label for="hDNI">DNI</label>
+                    <input type="text" id="hDNI" name="hDNI" placeholder="Ingrese DNI..." value="<?= $hDNI ?>"
+                           onkeypress="IntOrSubmit(event, this);" oninput="CheckSheetsFormButton();">
+                    <label for="hName">Nombre</label>
+                    <input type="text" id="hName" name="hName" placeholder="Ingrese nombre..." value="<?= $hName ?>"
+                           oninput="CheckSheetsFormButton();">
+                    <label for="hLastname">Apellido</label>
+                    <input type="text" id="hLastname" name="hLastname" placeholder="Ingrese apellido..." value="<?= $hLastname ?>"
+                           oninput="CheckSheetsFormButton();">
+                    <label for="hData">Datos médicos</label>
+                    <textarea type="text" id="hData" name="hData" placeholder="Ingrese datos médicos..."
+                              oninput="CheckSheetsFormButton();"><?= $hData ?></textarea>
+
+                    <label id="form_error_label" class="error_label"><?= $error ?></label>
+
+                    <button type="submit" id="submit" name="submit" class="form-button-disabled"
+                            onclick="SheetsFormButton(event, this);" onfocus="CheckSheetsForm();" onmouseover="CheckSheetsForm();"
+                            onfocusout="RestoreSheetsForm();" onmouseout="RestoreSheetsForm();" <?= $error != "&nbsp" ? "disabled" : "" ?>>Registrar</button>
+                </form>
+                <span id="bottom-padding">&nbsp</span>
             </div>
         </main>
     </body>
-    
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="scripts/script.js"></script>
 
     <script src="scripts/jquery-3.6.0.min.js"></script>
 	<script src="scripts/main.js"></script>

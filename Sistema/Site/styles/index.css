@@ -95,8 +95,10 @@ input::placeholder {
 
 .login {
 	width: 100%;
-	padding-top: 156px;
+	padding-top: 142px;
 	text-align: center;
+	padding-left: 35px;
+	padding-right: 35px;
 }
 
 .login__field {
@@ -123,8 +125,9 @@ input::placeholder {
 	padding: 10px;
 	padding-left: 24px;
 	font-weight: 700;
-	width: 75%;
+	width: 90%;
 	transition: 2ms;
+	color: var(--color-font-over-primary);
 }
 
 .login__input:active,
@@ -157,10 +160,6 @@ input::placeholder {
 .login__submit:hover {
 	border-color: var(--color-accent);
 	outline: none;
-}
-
-.login__button {
-	padding: 0 30px;
 }
 
 .button__icon {
