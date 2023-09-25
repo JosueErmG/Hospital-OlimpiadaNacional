@@ -11,3 +11,9 @@ Sistema hospitalario destinado a la gestión de reportes y emergencias.
 - Instale el APK en la raiz del proyecto en su dispositivo android.
 
 Nota: Le aparecera en pantalla una advertencia de que la aplicación puede ser dañina, esto se debe a que, por falta de tiempo, la aplicación no fue verificada por Google.
+
+## Participantes:
+- Josué Ermantraut
+- Ivan Navarrete
+- Lautaro Munz
+- Juan Del Saz
