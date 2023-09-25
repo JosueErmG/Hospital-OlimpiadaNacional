@@ -18,7 +18,7 @@
     $totalPages = ceil(TableRowsCount("reportesview") / $limit);
     $curPage = isset($_POST["dt_curPage"]) ? min(max(1, $_POST["dt_curPage"]), $totalPages) : 1;
     $offset = ($curPage - 1) * $limit;
-    $rows = GetTable("reportesview", $offset, $limit, $search, "ID DESC");
+    $rows = GetTable("reportesview", $offset, $limit, $search, "`Atendido` ASC, `Nivel de\r\nemergencia` ASC, `ID` DESC");
 ?>
 
 <html lang="es" data-theme="<?= $_COOKIE['theme'] ?>">
@@ -129,7 +129,7 @@
                         </form>
                     </div>
                 </section>
-                <div class="form-u grid-two-rows">
+                <div class="grid-two-rows">
                     <div class="form-u card container">
                         <h4>No atendidos: <span id="notattended"></span></h4>
                     </div>
@@ -147,9 +147,7 @@
                     FROM reportes
                     GROUP BY nivel ASC
                 ");
-                
-                $promedios = array();
-                
+    
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         $promedios[] = array(
@@ -159,35 +157,16 @@
                     }
                 }
                 
-                function obtenerPromedios() {
-                    $promedios = obtenerPromedios();
-                }
-
                 $resultado = $conn->query("
                     SELECT COUNT(*) AS contador_no_atendidos FROM reportes
                     WHERE atendido = 0
                 ");
 
-                if ($resultado->num_rows > 0) {
+                if ($resultado->num_rows > 0)
                     $fila = $resultado->fetch_assoc();
-                    $fila["contador_no_atendidos"];
-                }
             ?>
 
             <script>
-                // function obtenerContadorNoAtendidos() {
-                //     var xhr = new XMLHttpRequest();
-                //     xhr.onreadystatechange = function() {
-                //         if (xhr.readyState === 4 && xhr.status === 200) {
-                //             var contador = document.getElementById("contador");
-                //             contador.innerHTML = xhr.responseText;
-                //         }
-                //     };
-                //     xhr.open("GET", "obtener_contador.php", true);
-                //     xhr.send();
-                // }
-                // window.onload = obtenerContadorNoAtendidos;
-
                 document.getElementById("notattended").innerHTML = "<?= $fila["contador_no_atendidos"] ?>";
 
                 var datos = <?= json_encode($promedios) ?>;
